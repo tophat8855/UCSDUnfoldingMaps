@@ -17,6 +17,7 @@ import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.geo.Location;
 
 //Parsing library
 import parsing.ParseFeed;
@@ -87,7 +88,13 @@ public class EarthquakeCityMap extends PApplet {
 	    // an int that represents the color yellow.  
 	    int yellow = color(255, 255, 0);
 	    
-	    //TODO: Add code here as appropriate
+		for (PointFeature earthquake : earthquakes) {
+			Location location = earthquake.getLocation();
+			SimplePointMarker marker = new SimplePointMarker(location); 
+			markers.add(marker);
+		}
+
+		map.addMarkers(markers);
 	}
 		
 	// A suggested helper method that takes in an earthquake feature and 
