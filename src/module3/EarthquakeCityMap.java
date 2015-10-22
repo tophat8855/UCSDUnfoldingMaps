@@ -50,6 +50,12 @@ public class EarthquakeCityMap extends PApplet {
 	//feed with magnitude 2.5+ Earthquakes
 	private String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom";
 
+	private final int yellow = color(255, 255, 0);
+	private final int blue = color(0, 0, 255);
+	private final int red = color(255, 0, 0);
+	private final int black = color(0, 0, 0);
+	private final int white = color(255, 255, 255);
+
 	
 	public void setup() {
 		size(950, 600, OPENGL);
@@ -106,23 +112,18 @@ public class EarthquakeCityMap extends PApplet {
 	}
 
 	private void setMarkerProperties(SimplePointMarker marker, float mag) {
-		int yellow = color(255, 255, 0);
-		int blue = color(0, 0, 255);
-		int red = color(255, 0, 0);
-		int black = color(0, 0, 0);
-
-		if (mag >= 5.0) {
-			marker.setColor(red);
-			marker.setRadius(mag*3);
-			marker.setStrokeColor(black);
-		} else if (mag >= 4.0 && mag < 5.0) {
+		if (mag < THRESHOLD_LIGHT) {
+			marker.setColor(blue);
+			marker.setRadius(mag);
+			marker.setStrokeColor(blue);
+		} else if (mag < THRESHOLD_MODERATE) {
 			marker.setColor(yellow);
 			marker.setRadius(mag*2);
 			marker.setStrokeColor(black);
 		} else {
-			marker.setColor(blue);
-			marker.setRadius(mag);
-			marker.setStrokeColor(blue);
+			marker.setColor(red);
+			marker.setRadius(mag*3);
+			marker.setStrokeColor(black);
 		}
 	}
 	
@@ -133,10 +134,23 @@ public class EarthquakeCityMap extends PApplet {
 	}
 
 	// helper method to draw key in GUI
-	// TODO: Implement this method to draw the key
-	private void addKey() 
-	{	
-		// Remember you can use Processing's graphics methods here
-	
+	private void addKey()
+	{
+		stroke(black);
+		fill(white);
+		rect(30, 50, 150, 400);
+		fill(black);
+		textSize(10);
+		text("Key", 90, 80);
+		text("5.0+ Magnitude", 90, 120);
+		text("4.0+ Magnitude", 90, 170);
+		text("< 4.0 Magnitude", 90, 220);
+		fill(red);
+		ellipse(60, 120, 20, 20);
+		fill(yellow);
+		ellipse(60, 170, 10, 10);
+		fill(blue);
+		stroke(blue);
+		ellipse(60, 220, 5, 5);
 	}
 }
