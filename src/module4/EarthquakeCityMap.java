@@ -192,7 +192,9 @@ public class EarthquakeCityMap extends PApplet {
 					countryEarthquakeCount++;
 				}
 			}
-			countryQuakes.put(country.getProperty("name"), countryEarthquakeCount);
+			if(countryEarthquakeCount > 0) {
+				countryQuakes.put(country.getProperty("name"), countryEarthquakeCount);
+			}
 			leftoverQuakeCount -= countryEarthquakeCount;
 		}
 
