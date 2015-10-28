@@ -1,6 +1,7 @@
 package module4;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
@@ -111,7 +112,7 @@ public class EarthquakeCityMap extends PApplet {
 	    }
 
 	    // could be used for debugging
-	    printQuakes();
+	    printQuakes(earthquakes);
 	 		
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
@@ -164,7 +165,7 @@ public class EarthquakeCityMap extends PApplet {
 		
 		//loop over all countries to check if location is in any of them
 		for(Marker country : countryMarkers) {
-			if(isInCountry(earthquake, country)){
+			if(isInCountry(earthquake, country)) {
 				return true;
 			}
 		}
@@ -179,12 +180,25 @@ public class EarthquakeCityMap extends PApplet {
 	// the quakes to count how many occurred in that country.
 	// Recall that the country markers have a "name" property, 
 	// And LandQuakeMarkers have a "country" property set.
-	private void printQuakes() 
+	private void printQuakes(List<PointFeature> earthquakes)
 	{
-		// TODO: Implement this method
+		HashMap countryQuakes = new HashMap();
+		Integer leftoverQuakeCount = quakeMarkers.size();
+
+		for(Marker country : countryMarkers) {
+			Integer countryEarthquakeCount = 0;
+			for(PointFeature earthquake : earthquakes){
+				if(isInCountry(earthquake, country)){
+					countryEarthquakeCount++;
+				}
+			}
+			countryQuakes.put(country.getProperty("name"), countryEarthquakeCount);
+			leftoverQuakeCount -= countryEarthquakeCount;
+		}
+
+		System.out.println(countryQuakes.toString());
+		System.out.println("Ocean Quakes: " + leftoverQuakeCount.toString());
 	}
-	
-	
 	
 	// helper method to test whether a given earthquake is in a given country
 	// This will also add the country property to the properties of the earthquake 
