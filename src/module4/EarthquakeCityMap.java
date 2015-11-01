@@ -79,7 +79,7 @@ public class EarthquakeCityMap extends PApplet {
 		// one of the lines below.  This will work whether you are online or offline
 		//earthquakesURL = "test1.atom";
 		//earthquakesURL = "test2.atom";
-		
+
 		// WHEN TAKING THIS QUIZ: Uncomment the next line
 		//earthquakesURL = "quiz1.atom";
 		
@@ -135,24 +135,28 @@ public class EarthquakeCityMap extends PApplet {
 	private void addKey() {	
 		// Remember you can use Processing's graphics methods here
 		fill(255, 250, 240);
-		rect(25, 50, 150, 250);
+		rect(25, 50, 150, 300);
 		
 		fill(0);
 		textAlign(LEFT, CENTER);
 		textSize(12);
 		text("Earthquake Key", 50, 75);
+
+		fill(color(204, 0, 0));
+		triangle(50, 120, 45, 130, 55, 130);
 		
 		fill(color(255, 0, 0));
-		ellipse(50, 125, 15, 15);
+		ellipse(50, 175, 15, 15);
 		fill(color(255, 255, 0));
-		ellipse(50, 175, 10, 10);
+		ellipse(50, 225, 10, 10);
 		fill(color(0, 0, 255));
-		ellipse(50, 225, 5, 5);
+		ellipse(50, 275, 5, 5);
 		
 		fill(0, 0, 0);
-		text("5.0+ Magnitude", 75, 125);
-		text("4.0+ Magnitude", 75, 175);
-		text("Below 4.0", 75, 225);
+		text("City Marker", 75, 125);
+		text("5.0+ Magnitude", 75, 175);
+		text("4.0+ Magnitude", 75, 225);
+		text("Below 4.0", 75, 275);
 	}
 
 	
