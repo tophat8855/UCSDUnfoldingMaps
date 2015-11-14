@@ -162,12 +162,43 @@ public class EarthquakeCityMap extends PApplet {
 	@Override
 	public void mouseClicked()
 	{
-		// TODO: Implement this method
-		// Hint: You probably want a helper method or two to keep this code
-		// from getting too long/disorganized
+		if (lastClicked != null) {
+			lastSelected = null;
+			lastClicked = null;
+			unhideMarkers();
+		} else {
+			lastClicked = lastSelected;
+			if (lastClicked instanceof EarthquakeMarker) {
+				hideAllOtherQuakes();
+				for (Marker marker : cityMarkers) {
+					 if (lastClicked.getDistanceTo(marker.getLocation()) > ((EarthquakeMarker) lastClicked).threatCircle()) {
+						 marker.setHidden(true);
+					 }
+				}
+			} else if (lastClicked instanceof CityMarker) {
+				hideAllOtherCities();
+				for (Marker marker : quakeMarkers) {
+					if (((EarthquakeMarker) marker).threatCircle() <= marker.getDistanceTo(lastClicked.getLocation())) {
+						marker.setHidden(true);
+					}
+				}
+			}
+		}
 	}
-	
-	
+
+	private void hideAllOtherQuakes() {
+		for (Marker marker : quakeMarkers) {
+			marker.setHidden(true);
+		}
+		lastClicked.setHidden(false);
+	}
+
+	private void hideAllOtherCities() {
+		for (Marker marker : quakeMarkers) {
+			marker.setHidden(true);
+		}
+	}
+
 	// loop over and unhide all markers
 	private void unhideMarkers() {
 		for(Marker marker : quakeMarkers) {
